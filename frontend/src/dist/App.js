@@ -1,10 +1,10 @@
 "use strict";
 exports.__esModule = true;
-var BarChart_1 = require("./components/BarChart");
-var DonutChart_1 = require("./components/DonutChart");
-var DataTable_1 = require("./components/DataTable");
-var Footer_1 = require("./components/Footer");
-var NavBar_1 = require("./components/NavBar");
+var BarChart_1 = require("components/BarChart");
+var DonutChart_1 = require("components/DonutChart");
+var DataTable_1 = require("components/DataTable");
+var Footer_1 = require("components/Footer");
+var NavBar_1 = require("components/NavBar");
 function App() {
     return (React.createElement(React.Fragment, null,
         React.createElement(NavBar_1["default"], null),
