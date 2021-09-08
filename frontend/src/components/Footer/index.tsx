@@ -7,7 +7,6 @@ const Footer = () => {
                     Evento promovido pela escola DevSuperior: <a href="https://instagram.com/devsuperior.ig" target="_blank" rel="noreferrer">@devsuperior.ig</a></small></p>
             </div>
         </footer>
-
     );
 }
 

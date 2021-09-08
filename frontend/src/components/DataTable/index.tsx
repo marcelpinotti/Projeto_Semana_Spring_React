@@ -113,7 +113,6 @@ const DataTable = () => {
             </tbody>
         </table>
     </div>
-
     );
 }
 

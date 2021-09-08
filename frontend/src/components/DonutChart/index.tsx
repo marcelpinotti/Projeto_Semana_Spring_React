@@ -1,7 +1,5 @@
 import Chart from 'react-apexcharts';
 
-
-
 const DonutChart = () => {
 
     const mockData = {
