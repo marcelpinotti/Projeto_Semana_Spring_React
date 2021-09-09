@@ -1,6 +1,8 @@
 package com.marcelpinotti.sdvendas.services;
 
 import com.marcelpinotti.sdvendas.DTO.SaleDTO;
+import com.marcelpinotti.sdvendas.DTO.SaleSuccessDTO;
+import com.marcelpinotti.sdvendas.DTO.SaleSumDTO;
 import com.marcelpinotti.sdvendas.entities.Sale;
 import com.marcelpinotti.sdvendas.repositories.SaleRepository;
 import com.marcelpinotti.sdvendas.repositories.SellerRepository;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class SaleService {
@@ -24,6 +28,16 @@ public class SaleService {
         sellerRepository.findAll(); // Solução simples para criar a lista em memória a JPA cria um cache em memória e o JPA não ir buscar o saller automaticamente toda vez no banco de dados por causa dos relacionamento entre as entidades.
         Page<Sale> result = saleRepository.findAll( pageable);
         return result.map(x -> new SaleDTO(x));
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSumDTO> amountGroupedBySeller(){
+        return saleRepository.amountGroupedBySeller();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSuccessDTO> successGroupedBySeller() {
+        return saleRepository.successGroupedBySeller();
     }
 
 }
