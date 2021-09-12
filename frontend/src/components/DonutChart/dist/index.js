@@ -13,23 +13,21 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 var axios_1 = require("axios");
 var react_apexcharts_1 = require("react-apexcharts");
+var react_1 = require("react");
+var react_2 = require("react");
+var requests_1 = require("utils/requests");
 var DonutChart = function () {
-    //forma errada mas roda (o correto é chamar rotas, etc)
-    var chartData = { labels: [], series: [] };
-    //requisição back-end
-    //forma errada 
-    axios_1["default"].get('${BASE_URL}/sales/amount-by-seller')
-        .then(function (response) {
-        var data = response.data;
-        var myLabels = data.map(function (x) { return x.sellerName; });
-        var mySeries = data.map(function (x) { return x.sum; });
-        chartData = { labels: myLabels, series: mySeries };
-        console.log(chartData);
-    });
-    //const mockData = {
-    //    series: [477138, 499928, 444867, 220426, 473088],
-    //    labels: ['Anakin', 'Barry Allen', 'Kal-El', 'Logan', 'Padmé']
-    //}
+    var _a = react_1.useState({ labels: [], series: [] }), chartData = _a[0], setChartData = _a[1];
+    react_2.useEffect(function () {
+        //requisição back-end
+        axios_1["default"].get(requests_1.BASE_URL + "/sales/amount-by-seller")
+            .then(function (response) {
+            var data = response.data;
+            var myLabels = data.map(function (x) { return x.sellerName; });
+            var mySeries = data.map(function (x) { return x.sum; });
+            setChartData({ labels: myLabels, series: mySeries });
+        });
+    }, []);
     var options = {
         legend: {
             show: true
