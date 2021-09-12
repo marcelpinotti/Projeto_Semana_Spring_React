@@ -11,8 +11,44 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
+var axios_1 = require("axios");
 var react_apexcharts_1 = require("react-apexcharts");
+var react_1 = require("react");
+var react_2 = require("react");
+var requests_1 = require("utils/requests");
+var format_1 = require("utils/dist/format");
 var BarChart = function () {
+    var _a = react_1.useState({
+        labels: {
+            categories: []
+        },
+        series: [
+            {
+                name: "",
+                data: []
+            }
+        ]
+    }), chartData = _a[0], setChartData = _a[1];
+    react_2.useEffect(function () {
+        //requisição back-end
+        axios_1["default"].get(requests_1.BASE_URL + "/sales/success-by-seller")
+            .then(function (response) {
+            var data = response.data;
+            var myLabels = data.map(function (x) { return x.sellerName; });
+            var mySeries = data.map(function (x) { return format_1.round(100.0 * x.deals / x.visited, 1); });
+            setChartData({
+                labels: {
+                    categories: myLabels
+                },
+                series: [
+                    {
+                        name: "Sucesso",
+                        data: mySeries
+                    }
+                ]
+            });
+        });
+    }, []);
     var options = {
         plotOptions: {
             bar: {
@@ -20,17 +56,6 @@ var BarChart = function () {
             }
         }
     };
-    var mockData = {
-        labels: {
-            categories: ['Anakin', 'Barry Allen', 'Kal-El', 'Logan', 'Padmé']
-        },
-        series: [
-            {
-                name: "% Sucesso",
-                data: [43.6, 67.1, 67.7, 45.6, 71.1]
-            }
-        ]
-    };
-    return (React.createElement(react_apexcharts_1["default"], { options: __assign(__assign({}, options), { xaxis: mockData.labels }), series: mockData.series, type: "bar", height: "240" }));
+    return (React.createElement(react_apexcharts_1["default"], { options: __assign(__assign({}, options), { xaxis: chartData.labels }), series: chartData.series, type: "bar", height: "240" }));
 };
 exports["default"] = BarChart;
