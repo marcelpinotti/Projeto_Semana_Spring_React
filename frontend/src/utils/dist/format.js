@@ -1,4 +1,3 @@
-"use strict";
 exports.__esModule = true;
 exports.formatLocalDate = exports.round = void 0;
 var date_fns_1 = require("date-fns");
